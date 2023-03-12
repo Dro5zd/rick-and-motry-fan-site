@@ -15,11 +15,11 @@ export const SearchForm = ({setCharacters}) => {
     const [searchParams, setSearchParams] = useSearchParams('');
     searchParams.get('name');
 
-    useEffect(() => {
-        if (inputValue) {
-            handleDebounceFn(inputValue)
-        }
-    }, [searchParams]);
+    // useEffect(() => {
+    //     if (inputValue) {
+    //         handleDebounceFn(inputValue)
+    //     }
+    // }, [searchParams]);
 
     useEffect(() => {
         localStorage.setItem('search', JSON.stringify(inputValue));
@@ -33,6 +33,7 @@ export const SearchForm = ({setCharacters}) => {
     }, [setSearchParams]);
 
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
 
     const {setIsLoading} = useContext(IsLoadingContext);
