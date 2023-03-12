@@ -1,0 +1,31 @@
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchInput {
+    padding: 16px 16px 16px 48px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    width: inherit;
+    font: inherit;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 61px;
+}
+
+.searchInput::placeholder {
+    font: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.searchIcon {
+    position: absolute;
+    top: 19px;
+    left: 18px;
+    height: 17.5px;
+    width: 17.5px;
+}
+

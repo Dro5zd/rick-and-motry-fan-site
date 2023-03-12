@@ -1,10 +1,13 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {SearchFormInput} from './SearchForm.styled';
-// import Notiflix from 'notiflix';
+import Notifier from 'notiflix';
 import {useSearchParams} from 'react-router-dom';
 import instance from "../../api/axios";
 import requests from "../../api/requests";
 import {IsLoadingContext} from "../../App";
+import s from './SearchForm.module.css'
+import searchIcon from '../../assets/search-icon.svg'
+import sortData from "../../utils/sortData";
+
 const _debounce = require('lodash/debounce');
 
 export const SearchForm = ({setCharacters}) => {
@@ -13,8 +16,8 @@ export const SearchForm = ({setCharacters}) => {
     searchParams.get('name');
 
     useEffect(() => {
-        if(inputValue){
-        handleDebounceFn(inputValue)
+        if (inputValue) {
+            handleDebounceFn(inputValue)
         }
     }, [searchParams]);
 
@@ -23,39 +26,32 @@ export const SearchForm = ({setCharacters}) => {
     }, [inputValue]);
 
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('search'));
-        if (items) {
-            setSearchParams({name: items});
+        const search = JSON.parse(localStorage.getItem('search'));
+        if (search) {
+            setSearchParams({name: search});
         }
-    }, []);
+    }, [setSearchParams]);
+
 
     const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
 
     const {setIsLoading} = useContext(IsLoadingContext);
+
     function handleDebounceFn(inputValue) {
         setIsLoading(true);
+
         async function fetchData() {
             try {
                 const response = await instance.get(requests.searchCharacter(inputValue));
-                const sortedCharacters = response.data.results.sort((a, b) => {
-                    const nameA = a.name.toUpperCase();
-                    const nameB = b.name.toUpperCase();
-                    if (nameA < nameB) {
-                        return -1;
-                    }
-                    if (nameA > nameB) {
-                        return 1;
-                    }
-                    return 0;
-                })
+                const sortedCharacters = sortData(response.data.results)
                 setCharacters(sortedCharacters)
                 setSearchParams({name: inputValue})
                 if (inputValue.trim() === '') {
                     setSearchParams('')
-                    // return Notiflix.Notify.failure('Sorry, but you didn\'t enter anything. Please try again.');
-                   }
+                }
 
             } catch (e) {
+                Notifier.Notify.failure('There is nothing here')
                 console.log(e)
             } finally {
                 setIsLoading(false);
@@ -71,7 +67,9 @@ export const SearchForm = ({setCharacters}) => {
     };
 
     return (
-            <SearchFormInput
+        <div className={s.inputWrapper}>
+            <input
+                className={s.searchInput}
                 onChange={onChangeHandler}
                 type="text"
                 autoComplete="off"
@@ -79,5 +77,7 @@ export const SearchForm = ({setCharacters}) => {
                 autoFocus
                 placeholder="Filter by name..."
             />
+            <img className={s.searchIcon} src={searchIcon} alt={'search'}/>
+        </div>
     );
 }

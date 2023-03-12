@@ -2,42 +2,28 @@ import React, {useContext, useEffect, useState} from 'react';
 import {IsLoadingContext} from "../../App";
 import instance from "../../api/axios";
 import requests from "../../api/requests";
-import {Link} from "react-router-dom";
 import logo from '../../assets/main-logo.png'
 import {SearchForm} from "../../components/SearchForm/SearchForm";
+import s from './HomePage.module.css'
+import Characters from "../../components/Characters/Characters";
+import sortData from "../../utils/sortData";
 
 const HomePage = () => {
 
     const {setIsLoading} = useContext(IsLoadingContext);
     const [characters, setCharacters] = useState([]);
 
-    // const nextPageHandler = async () => {
-    //     try {
-    //         const res = await instance.get(requests.fetchCharacters);
-    //         const resNew = res.data.info.next
-    //         console.log(resNew)
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
-
     useEffect(() => {
             setIsLoading(true);
 
             async function fetchData() {
+                let response = ''
+                const search = JSON.parse(localStorage.getItem('search'));
                 try {
-                    const response = await instance.get(requests.fetchCharacters);
-                    const sortedCharacters = response.data.results.sort((a, b) => {
-                        const nameA = a.name.toUpperCase();
-                        const nameB = b.name.toUpperCase();
-                        if (nameA < nameB) {
-                            return -1;
-                        }
-                        if (nameA > nameB) {
-                            return 1;
-                        }
-                        return 0;
-                    })
+                    !search ?
+                        response = await instance.get(requests.fetchCharacters) :
+                        response = await instance.get(requests.searchCharacter(search));
+                    const sortedCharacters = sortData(response.data.results)
                     setCharacters(sortedCharacters)
                 } catch (e) {
                     console.log(e)
@@ -51,22 +37,10 @@ const HomePage = () => {
     );
 
     return (
-        <div>
-            <img src={logo} alt="" style={{width: '240px'}}/>
-            {/*<button onClick={nextPageHandler}>Page+1</button>*/}
-            <SearchForm placeholder={'Filter by name...'} setCharacters={setCharacters}/>
-            {characters.map(({id, name, image, species}) => {
-                    return <Link to={`/character/${id}`} key={id}>
-                        <div>
-                            <img src={image} alt="character" style={{width: '240px'}}/>
-                            <p>{name}</p>
-                            <p>{species}</p>
-                        </div>
-                    </Link>
-                }
-            )
-            }
-
+        <div className={s.container}>
+            <img className={s.logo} src={logo} alt="main-logo"/>
+            <SearchForm setCharacters={setCharacters}/>
+            <Characters characters={characters}/>
         </div>
     );
 };

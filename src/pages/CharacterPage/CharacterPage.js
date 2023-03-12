@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import instance from "../../api/axios";
 import requests from "../../api/requests";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {IsLoadingContext} from "../../App";
-
+import CharacterInfoCard from "../../components/CharacterInfoCard/CharacterInfoCard";
+import s from './CharacterPage.module.css'
+import BackButton from "../../components/BackButton/BackButton";
 const CharacterPage = () => {
 
     const {id} = useParams();
@@ -23,30 +25,15 @@ const CharacterPage = () => {
                     setIsLoading(false);
                 }
             }
-
             fetchCharacter();
         }, [id, setIsLoading]
     );
 
-    const {name, specie, image, origin, type, status, gender} = character
-
-    const location = useLocation();
-    const backLinkHref = location.state?.from ?? "/";
-
     return (
-        <>
-            <Link to={backLinkHref}>GO BACK</Link>
-            {character && <div>
-                <img src={image} alt="character" style={{width: '240px'}}/>
-                <p>{name}</p>
-                Information
-                <p>{gender}</p>
-                <p>{status}</p>
-                <p>{specie}</p>
-                Origin: <p>{origin ? origin.name : 'No info'}</p>
-                Type: <p>{type !== '' ? type : 'Unknown'}</p>
-            </div>}
-        </>
+        <div className={s.container} >
+            <BackButton/>
+            {character && <CharacterInfoCard character={character}/>}
+        </div>
     );
 };
 

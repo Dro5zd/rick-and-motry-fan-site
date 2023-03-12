@@ -1,14 +1,10 @@
 import React from "react";
-import {
-    LoaderBody,
-    LoaderWrapper,
-} from "./Loader.styled";
+import s from './Loader.module.css'
 
-export const Loader = ({isLoading}) => {
+export const Loader = () => {
     return (
-        <LoaderWrapper isLoading={isLoading}>
-            <LoaderBody></LoaderBody>
-        </LoaderWrapper>
-
+        <div className={s.loaderWrapper}>
+            <div className={s.loaderBody}></div>
+        </div>
     );
 };
