@@ -9,32 +9,28 @@ import Characters from "../../components/Characters/Characters";
 import sortData from "../../utils/sortData";
 
 const HomePage = () => {
-
+    const search = JSON.parse(localStorage.getItem('search')) || ''
     const {setIsLoading} = useContext(IsLoadingContext);
     const [characters, setCharacters] = useState([]);
 
     useEffect(() => {
-            setIsLoading(true);
-
-            async function fetchData() {
-                let response = ''
-                const search = JSON.parse(localStorage.getItem('search'));
-                try {
-                    !search ?
-                        response = await instance.get(requests.fetchCharacters) :
-                        response = await instance.get(requests.searchCharacter(search));
-                    const sortedCharacters = sortData(response.data.results)
-                    setCharacters(sortedCharacters)
-                } catch (e) {
-                    console.log(e)
-                } finally {
-                    setIsLoading(false);
-                }
+        async function fetchData() {
+            try {
+                setIsLoading(true);
+                const response = await instance.get(
+                    search ? requests.searchCharacter(search) : requests.fetchCharacters
+                );
+                const sortedCharacters = sortData(response.data.results);
+                setCharacters(sortedCharacters);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoading(false);
             }
+        }
 
-            fetchData();
-        }, [setIsLoading]
-    );
+        fetchData();
+    }, [search, setIsLoading]);
 
     return (
         <div className={s.container}>
