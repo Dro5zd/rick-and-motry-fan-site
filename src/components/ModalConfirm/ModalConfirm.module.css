@@ -1,0 +1,66 @@
+.confirmImg {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.confirmTitle {
+    font-size: 18px;
+    text-align: center;
+}
+
+.btnBox {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.cancelBtn, .actionBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 28px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.35;
+    color: black;
+    border: 2px solid green;
+    border-radius: 40px;
+    cursor: pointer;
+    width: 100px;
+    height: 34px;
+    background-color: green;
+    transition: transform 250ms ease-in-out;
+}
+
+.cancelBtn:hover, .actionBtn:hover, .cancelBtn:focus, .actionBtn:focus {
+    color: white;
+    padding: 5px 28px;
+    transform: scale(1.05);
+}
+
+.actionBtn {
+    background-color: red;
+    border: 2px solid red;
+}
+
+@media screen and (min-width: 768px) {
+    .confirmImg {
+        width: 200px;
+        height: 200px;
+    }
+
+    .confirmTitle {
+        font-size: 24px;
+    }
+
+    .btnBox {
+        padding: 20px;
+    }
+
+    .cancelBtn, .actionBtn {
+        padding: 10px 28px;
+        font-size: 20px;
+        line-height: 1.3;
+    }
+}

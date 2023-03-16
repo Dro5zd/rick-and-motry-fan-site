@@ -7,11 +7,14 @@ import {SearchForm} from "../../components/SearchForm/SearchForm";
 import s from './HomePage.module.css'
 import Characters from "../../components/Characters/Characters";
 import sortData from "../../utils/sortData";
+import {ModalConfirm} from "../../components/ModalConfirm/ModalConfirm";
 
 const HomePage = () => {
     const search = JSON.parse(localStorage.getItem('search')) || ''
     const {setIsLoading} = useContext(IsLoadingContext);
     const [characters, setCharacters] = useState([]);
+    const [show, setShow] = useState(true);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -37,6 +40,9 @@ const HomePage = () => {
             <img className={s.logo} src={logo} alt="main-logo"/>
             <SearchForm setCharacters={setCharacters}/>
             <Characters characters={characters}/>
+            {show ? (
+                <ModalConfirm onClose={() => {setShow(!show)}}/>
+            ) : null}
         </div>
     );
 };
