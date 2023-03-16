@@ -4,8 +4,9 @@ import confirmImg from '../../assets/sad-rick.png'
 
 export const ModalConfirm = ({
   onClose,
-  action,
+  onQuit,
 }) => {
+
   return (
     <Modal onClose={onClose}>
       <img className={s.confirmImg} src={confirmImg} alt="sad cat" />
@@ -14,7 +15,7 @@ export const ModalConfirm = ({
         <button className={s.cancelBtn} onClick={onClose}>
           Cancel
         </button>
-          <button className={s.actionBtn} onClick={action}>Quit</button>
+          <button className={s.actionBtn} onClick={onQuit}>Quit</button>
       </div>
     </Modal>
   );

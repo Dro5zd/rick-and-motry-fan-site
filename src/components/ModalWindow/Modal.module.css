@@ -13,10 +13,6 @@
     background: rgba(17, 17, 17, 0.6);
     backdrop-filter: blur(10px);
     z-index: 200;
-
-    /*${device.tablet} {*/
-    /*    padding: 100px 0;*/
-    /*}*/
 }
 
 .content {
@@ -27,13 +23,7 @@
     padding: 20px;
     box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
     border-radius: 30px;
-    /*${device.mobile} {*/
-    /*    max-width: 480px;*/
-    /*}*/
-    /*${device.tablet} {*/
-    /*    background-color: ${colors.white};*/
-    /*    max-width: 744px;*/
-    /*}*/
+    max-width: 480px;
 }
 
 .closeBtn {
@@ -51,30 +41,38 @@
     justify-content: center;
     color: black;
     z-index: 1;
-    /*transition: box-shadow ${transition}, color ${transition};*/
-
-/*${device.tablet} {*/
-/*    right: 20px;*/
-/*    top: 20px;*/
-/*    width: 44px;*/
-/*    height: 44px;*/
-/*}*/
+    transition: box-shadow 250ms ease-in-out, color 250ms ease-in-out;
 }
 
 .closeBtn svg {
     fill: currentColor;
     width: 16px;
     height: 16px;
-
-/*${device.tablet} {*/
-/*    width: 20px;*/
-/*    height: 20px;*/
-/*}*/
-
+    transition: transform 250ms ease-in-out;
 }
 
 .closeBtn:hover {
-     color: blue;
-     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
- }
+    transform: scale(1.05);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 768px) {
+    .backDrop {
+        padding: 100px 0;
+    }
+
+    .content {
+        max-width: 744px;
+    }
+
+    .closeBtn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .closeBtn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
 

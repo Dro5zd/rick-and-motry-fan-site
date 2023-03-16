@@ -3,8 +3,23 @@
     flex-direction: column;
     align-items: center;
     min-width: 320px;
-    padding: 86px 20px 188px 20px;
+    padding: 20px 20px 188px 20px;
     margin: 0 auto;
+}
+
+.loginLink {
+    font-family: 'Karla', sans-serif;
+    color: black;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-weight: 700;
+    margin-left: auto;
+    transition: transform 250ms ease-in-out;
+}
+
+.loginLink:hover {
+    transform: scale(1.05);
 }
 
 .logo {
@@ -12,13 +27,48 @@
     margin-bottom: 16px;
 }
 
+.userWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.userImg {
+    width: 40px;
+    border-radius: 25px;
+    border: 2px solid rgb(0, 166, 191);
+    box-shadow: 0 0 5px 2px rgba(4,140,0,0.75);
+}
+
+.userName {
+    display: none;
+}
+
+.logoutImg {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    transition: transform 250ms ease-in-out;
+}
+
+.logoutImg:hover {
+    transform: scale(1.05);
+}
+
 
 @media screen and (min-width: 768px) {
-    /*.container {*/
-    /*    max-width: 768px;*/
-    /*}*/
+    .container {
+        padding: 20px 20px 188px 20px;
+    }
     .logo {
         width: 600px;
+    }
+    .userName {
+        display: block;
+    }
+    .loginLink, .userWrapper{
+        margin-bottom: 26px;
     }
 }
 

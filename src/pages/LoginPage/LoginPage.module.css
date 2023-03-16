@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    padding: 10px 10px;
+}
+
+.card {
+    border: 2px solid black;
+    box-shadow: 0 0 15px 8px rgba(4, 140, 0, 0.75);
+    background-color: rgb(0, 166, 191);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.cardTitle {
+    margin-bottom: 25px;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 25px 54px;
+        min-width: 500px;
+    }
+}
